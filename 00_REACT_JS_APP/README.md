@@ -20,6 +20,78 @@ ref: [Creative Time with Material UI Tutorial](https://demos.creative-tim.com/ma
 npm install
 npm audit fix
 ```
+5. Copy jsconfig.json from template to project root 
+6. Copy folders (assets, components, views) to src/
+7. Add "import "assets/scss/material-kit-react.scss?v=1.10.0";" to index.js
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+import "assets/scss/material-kit-react.scss?v=1.10.0";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+```
+8. Conf app.js like this:
+
+```js
+import React, { Component } from 'react'
+import { createBrowserHistory } from "history"
+
+// pages for this product
+import Components from "views/Components/Components.js";
+import LandingPage from "views/LandingPage/LandingPage.js";
+import ProfilePage from "views/ProfilePage/ProfilePage.js";
+import LoginPage from "views/LoginPage/LoginPage.js";
+
+// Routing
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+var hist = createBrowserHistory();
+
+class App extends Component{
+  
+  constructor() {
+    super();
+    this.state = {
+      
+    }
+  }
+
+  
+  render() {
+    
+    return (   
+        <Router history={hist}>
+            <Switch>
+                <Route path="/landing-page" component={LandingPage} />
+                <Route path="/profile-page" component={ProfilePage} />
+                <Route path="/login-page" component={LoginPage} />
+                <Route path="/components" component={Components} />
+                <Route path="/" component={LandingPage} />
+            </Switch>
+        </Router>
+    )
+  }
+}
+
+export default App
+```
+
+
 
 # Amplify
 
@@ -35,14 +107,9 @@ amplify configure
 
 ```sh
 amplify init
-# Scanning for plugins...
-# Plugin scan successful
 # Note: It is recommended to run this command from the root of your app directory
-# ? Enter a name for the project 
-# ➜  kio-smart-contract-rjs-app git:(master) amplify init
-# Note: It is recommended to run this command from the root of your app directory
-# ? Enter a name for the project kiosmartcontractrjsa
-# ? Enter a name for the environment kioscenv
+# ? Enter a name for the project kiojupplacesreserver
+# ? Enter a name for the environment kiojuplrev
 # ? Choose your default editor: Visual Studio Code
 # ? Choose the type of app that you're building javascript
 # Please tell us about your project
@@ -57,29 +124,27 @@ amplify init
 # https://docs.aws.amazon.com/cli/latest/userguide/cli-multiple-profiles.html
 
 # ? Do you want to use an AWS profile? Yes
-# ? Please choose the profile you want to use kio-indoor-emap
-# Adding backend environment kioscenv to AWS Amplify Console app: d1l1kwcqq235gy
-# ⠋ Initializing project in the cloud...
+# ? Please choose the profile you want to use jupiter-electronics
+# Adding backend environment kiojuplrev to AWS Amplify Console app: d12mq8x0d6vvbw
+# ⠴ Initializing project in the cloud...
 
-# CREATE_IN_PROGRESS DeploymentBucket                             AWS::S3::Bucket            Wed Apr 28 2021 17:49:22 GMT-0500 (Colombia Standard Time)               
-# CREATE_IN_PROGRESS UnauthRole                                   AWS::IAM::Role             Wed Apr 28 2021 17:49:22 GMT-0500 (Colombia Standard Time)               
-# CREATE_IN_PROGRESS AuthRole                                     AWS::IAM::Role             Wed Apr 28 2021 17:49:22 GMT-0500 (Colombia Standard Time)               
-# CREATE_IN_PROGRESS amplify-kiosmartcontractrjsa-kioscenv-174913 AWS::CloudFormation::Stack Wed Apr 28 2021 17:49:17 GMT-0500 (Colombia Standard Time) User Initiated
+# CREATE_IN_PROGRESS UnauthRole                                    AWS::IAM::Role             Fri Aug 06 2021 09:40:40 GMT-0500 (Colombia Standard Time) Resource creation Initiated
+# CREATE_IN_PROGRESS AuthRole                                      AWS::IAM::Role             Fri Aug 06 2021 09:40:40 GMT-0500 (Colombia Standard Time) Resource creation Initiated
+# CREATE_IN_PROGRESS DeploymentBucket                              AWS::S3::Bucket            Fri Aug 06 2021 09:40:40 GMT-0500 (Colombia Standard Time)                            
+# CREATE_IN_PROGRESS AuthRole                                      AWS::IAM::Role             Fri Aug 06 2021 09:40:39 GMT-0500 (Colombia Standard Time)                            
+# CREATE_IN_PROGRESS UnauthRole                                    AWS::IAM::Role             Fri Aug 06 2021 09:40:39 GMT-0500 (Colombia Standard Time)                            
+# CREATE_IN_PROGRESS amplify-kiojupplacesreserver-kiojuplrev-94031 AWS::CloudFormation::Stack Fri Aug 06 2021 09:40:35 GMT-0500 (Colombia Standard Time) User Initiated             
+# ⠙ Initializing project in the cloud...
+
+# CREATE_IN_PROGRESS DeploymentBucket AWS::S3::Bucket Fri Aug 06 2021 09:40:40 GMT-0500 (Colombia Standard Time) Resource creation Initiated
+# ⠴ Initializing project in the cloud...
+
+# CREATE_COMPLETE UnauthRole AWS::IAM::Role Fri Aug 06 2021 09:40:53 GMT-0500 (Colombia Standard Time) 
+# CREATE_COMPLETE AuthRole   AWS::IAM::Role Fri Aug 06 2021 09:40:53 GMT-0500 (Colombia Standard Time) 
 # ⠦ Initializing project in the cloud...
 
-# CREATE_IN_PROGRESS AuthRole   AWS::IAM::Role Wed Apr 28 2021 17:49:23 GMT-0500 (Colombia Standard Time) Resource creation Initiated
-# CREATE_IN_PROGRESS UnauthRole AWS::IAM::Role Wed Apr 28 2021 17:49:23 GMT-0500 (Colombia Standard Time) Resource creation Initiated
-# ⠋ Initializing project in the cloud...
-
-# CREATE_IN_PROGRESS DeploymentBucket AWS::S3::Bucket Wed Apr 28 2021 17:49:23 GMT-0500 (Colombia Standard Time) Resource creation Initiated
-# ⠏ Initializing project in the cloud...
-
-# CREATE_COMPLETE UnauthRole AWS::IAM::Role Wed Apr 28 2021 17:49:36 GMT-0500 (Colombia Standard Time) 
-# CREATE_COMPLETE AuthRole   AWS::IAM::Role Wed Apr 28 2021 17:49:35 GMT-0500 (Colombia Standard Time) 
-# ⠧ Initializing project in the cloud...
-
-# CREATE_COMPLETE amplify-kiosmartcontractrjsa-kioscenv-174913 AWS::CloudFormation::Stack Wed Apr 28 2021 17:49:46 GMT-0500 (Colombia Standard Time) 
-# CREATE_COMPLETE DeploymentBucket                             AWS::S3::Bucket            Wed Apr 28 2021 17:49:44 GMT-0500 (Colombia Standard Time) 
+# CREATE_COMPLETE amplify-kiojupplacesreserver-kiojuplrev-94031 AWS::CloudFormation::Stack Fri Aug 06 2021 09:41:04 GMT-0500 (Colombia Standard Time) 
+# CREATE_COMPLETE DeploymentBucket                              AWS::S3::Bucket            Fri Aug 06 2021 09:41:01 GMT-0500 (Colombia Standard Time) 
 # ✔ Successfully created initial AWS cloud resources for deployments.
 # ✔ Initialized provider successfully.
 # Initialized your environment successfully.
@@ -106,11 +171,11 @@ nano ~/.aws/credentials
 export PATH=~/Library/Python/3.8/bin:$PATH
 # source ~/.bash_profile
 # test
-aws s3 ls --profile kio-indoor-emap
-export AWS_PROFILE=kio-indoor-emap
+aws s3 ls --profile jupiter-electronics
+export AWS_PROFILE=jupiter-electronics
 
 # aws codecommit create-repository --repository-name MyDemoRepo --repository-description "My demonstration repository" --tags Team=Saanvi
-aws codecommit create-repository --repository-name kio-smart-contract-rjs-app --repository-description "Cardano Smart Contracts" --tags Team=kio --region us-east-1 
+aws codecommit create-repository --repository-name kio-jup-places-reserve-rjs-app --repository-description "Building places reserve" --tags Team=kio --region us-east-1 
 
 ```
 
@@ -118,15 +183,15 @@ aws codecommit create-repository --repository-name kio-smart-contract-rjs-app --
 ```json
 {
     "repositoryMetadata": {
-        "accountId": "429849394467",
-        "repositoryId": "a86835c0-3778-4812-9417-660228a569d3",
-        "repositoryName": "kio-smart-contract-rjs-app",
-        "repositoryDescription": "Cardano Smart Contracts",
-        "lastModifiedDate": "2021-04-28T17:55:35.862000-05:00",
-        "creationDate": "2021-04-28T17:55:35.862000-05:00",
-        "cloneUrlHttp": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/kio-smart-contract-rjs-app",
-        "cloneUrlSsh": "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/kio-smart-contract-rjs-app",
-        "Arn": "arn:aws:codecommit:us-east-1:429849394467:kio-smart-contract-rjs-app"
+        "accountId": "953845147077",
+        "repositoryId": "c6ceab50-6edb-46fd-a0cd-747a01975578",
+        "repositoryName": "kio-jup-places-reserve-rjs-app",
+        "repositoryDescription": "Building places reserve",
+        "lastModifiedDate": "2021-08-06T10:03:05.069000-05:00",
+        "creationDate": "2021-08-06T10:03:05.069000-05:00",
+        "cloneUrlHttp": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/kio-jup-places-reserve-rjs-app",
+        "cloneUrlSsh": "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/kio-jup-places-reserve-rjs-app",
+        "Arn": "arn:aws:codecommit:us-east-1:953845147077:kio-jup-places-reserve-rjs-app"
     }
 }
 ```
@@ -136,9 +201,9 @@ aws codecommit create-repository --repository-name kio-smart-contract-rjs-app --
 
 ```sh
 ssh-keygen
-/Users/robin8a/.ssh/kio_smart_contracts_rsa
+/Users/robin8a/.ssh/jupiter_codecommit_rsa
 
-cat ~/.ssh/kio_smart_contracts_rsa.pub
+cat ~/.ssh/jupiter_codecommit_rsa.pub
 
 ```
 
@@ -151,10 +216,10 @@ nano config
 # Add
 
 # CodeCommit hosts
-# Host kio_smart_contracts_rsa
+# Host jupiter_codecommit_rsa
 #    HostName git-codecommit.us-east-1.amazonaws.com
 #    User AKIAWIFIFHURQXRLUPPD
-#    IdentityFile ~/.ssh/kio_smart_contracts_rsa
+#    IdentityFile ~/.ssh/jupiter_codecommit_rsa
 
 ```
 
@@ -163,8 +228,8 @@ https://xiaolishen.medium.com/use-multiple-ssh-keys-for-different-github-account
 ```sh
 # git remote -v
 # git remote rm origin
-# Using the same kio_indoor_emap_rsa because is on the same account
-git remote add origin ssh://kio_indoor_emap_rsa/v1/repos/kio-smart-contract-rjs-app
+git remote add origin ssh://jupiter/v1/repos/kio-jup-places-reserve-rjs-app
+git push --set-upstream origin master
 git push
 ```
 
@@ -172,32 +237,34 @@ git push
 
 # Install libraries
 ```sh
-npm install react-bootstrap bootstrap
-npm i react-external-link
-npm i react-router-dom
+# npm install react-bootstrap bootstrap
+# npm i react-external-link
+# npm i react-router-dom
 npm i aws-amplify @aws-amplify/ui-react
 npm i aws-amplify-react
-npm i --save react-select
-npm i styled-components
-npm i uuid
+# npm i --save react-select
+# npm i styled-components
+# npm i uuid
 ```
 
 
 # Amplify hosting
 ```sh
-`amplify add hosting`
+amplify add hosting
 ```
 ## Result
 ```sh
 amplify add hosting
-? Select the plugin module to execute Hosting with Amplify Console (Managed hosting with custom domains, Continuous deployment)
+? Select the plugin module to execute Hosting with Amplify Console (Managed hos
+ting with custom domains, Continuous deployment)
 ? Choose a type Continuous deployment (Git-based deployments)
-? Continuous deployment is configured in the Amplify Console. Please hit enter once you connect your repository 
+? Continuous deployment is configured in the Amplify Console. Please hit enter 
+once you connect your repository 
 Amplify hosting urls: 
-┌──────────────┬────────────────────────────────────────────┐
-│ FrontEnd Env │ Domain                                     │
-├──────────────┼────────────────────────────────────────────┤
-│ main         │ https://main.d1l1kwcqq235gy.amplifyapp.com │
+┌──────────────┬──────────────────────────────────────────────┐
+│ FrontEnd Env │ Domain                                       │
+├──────────────┼──────────────────────────────────────────────┤
+│ master       │ https://master.d12mq8x0d6vvbw.amplifyapp.com │
 ```
 
 # Amplify auth
